@@ -506,6 +506,29 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
+  const data = new FormData(this);
+  const fname = data.get('fname') || '';
+  const lname = data.get('lname') || '';
+  const email = data.get('email') || '';
+  const phone = data.get('phone') || '';
+  const company = data.get('company') || '';
+  const industry = data.get('industry') || '';
+  const service = data.get('service') || '';
+  const message = data.get('message') || '';
+
+  const subject = encodeURIComponent('New Inquiry from ' + fname + ' ' + lname);
+  const body = encodeURIComponent(
+    'Name: ' + fname + ' ' + lname + '\n' +
+    'Email: ' + email + '\n' +
+    'Phone: ' + phone + '\n' +
+    'Company: ' + company + '\n' +
+    'Industry: ' + industry + '\n' +
+    'Service of Interest: ' + service + '\n\n' +
+    'Message:\n' + message
+  );
+
+  window.location.href = 'mailto:mark@visiblesafety.ca?subject=' + subject + '&body=' + body;
+
   this.style.display='none';
   document.getElementById('formSuccess').style.display='block';
 });
